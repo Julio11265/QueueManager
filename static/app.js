@@ -184,5 +184,4 @@ async function refreshRowsFromServer() {
 }
 
 // Auto-refresh everyone currently viewing the page.
-// 3000 ms keeps the app simple and works well on Render free tier.
-setInterval(refreshRowsFromServer, 3000);
+setInterval(refreshRowsFromServer, 1500);
