@@ -8,24 +8,18 @@
 </head>
 <body>
   <main class="page">
-    <section class="toolbar">
-      <div>
-        <h1>Ticket Queue Manager</h1>
-        <p>Drag rows to change the queue order. Changes are saved automatically.</p>
-      </div>
+    <header class="page-header">
+      <h1>Ticket Queue Manager</h1>
+      <p>Drag rows to change the queue order. Changes are saved automatically.</p>
       <div class="date-card">
         <span>Date</span>
         <strong>{{ today }}</strong>
       </div>
-    </section>
+    </header>
 
     <div class="table-wrap">
       <table id="queue-table">
         <thead>
-          <tr class="date-row">
-            <th colspan="2">Date</th>
-            <th colspan="7">{{ today }}</th>
-          </tr>
           <tr>
             <th class="agent-col">Agent</th>
             <th>Flags</th>
@@ -50,8 +44,8 @@
             <td><input class="number-input" type="number" min="0" data-field="easy" value="{{ row.easy if row.easy is not none else '' }}"></td>
             <td><input class="number-input" type="number" min="0" data-field="investigation" value="{{ row.investigation if row.investigation is not none else '' }}"></td>
             <td><input class="number-input" type="number" min="0" data-field="autoclose" value="{{ row.autoclose if row.autoclose is not none else '' }}"></td>
-            <td><textarea data-field="emea_handovers" placeholder="#INC-000001">{{ row.emea_handovers or '' }}</textarea></td>
-            <td><textarea data-field="jobs_p1" placeholder="#INC-000001">{{ row.jobs_p1 or '' }}</textarea></td>
+            <td><textarea data-field="emea_handovers">{{ row.emea_handovers or '' }}</textarea></td>
+            <td><textarea data-field="jobs_p1">{{ row.jobs_p1 or '' }}</textarea></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -60,6 +54,11 @@
 
     <p id="save-status" aria-live="polite"></p>
   </main>
+
+  <footer class="page-footer">
+    <strong>Applications Management Team Bogota</strong>
+    <p>Created by Julio Gonzalez</p>
+  </footer>
 
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
