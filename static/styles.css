@@ -1,0 +1,135 @@
+:root {
+  --green: #a9d18e;
+  --yellow: #fff200;
+  --red: #ff4d4d;
+  --grey: #d9d9d9;
+  --border: #111;
+  --bg: #f6f7f8;
+  --text: #111827;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page {
+  max-width: 1250px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+h1 { margin: 0 0 6px; }
+p { margin: 0; color: #4b5563; }
+
+.date-card {
+  min-width: 160px;
+  padding: 12px 18px;
+  border: 2px solid var(--border);
+  background: var(--green);
+  text-align: center;
+}
+
+.date-card span { display: block; font-weight: 700; }
+.date-card strong { font-size: 1.25rem; }
+
+.table-wrap {
+  overflow-x: auto;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 1000px;
+}
+
+th, td {
+  border: 2px solid var(--border);
+  padding: 0;
+  vertical-align: middle;
+}
+
+th {
+  background: white;
+  font-size: 1.05rem;
+  height: 34px;
+}
+
+.date-row th {
+  background: var(--green);
+  font-size: 1.2rem;
+}
+
+.agent-col { width: 145px; }
+
+.agent-cell {
+  background: var(--grey);
+  font-weight: 700;
+  padding: 8px;
+  cursor: grab;
+}
+
+.drag-handle {
+  display: inline-block;
+  margin-right: 8px;
+  color: #374151;
+}
+
+.flags-cell {
+  padding: 6px;
+  width: 170px;
+  font-size: 0.9rem;
+}
+
+.flags-cell label {
+  display: block;
+  margin: 3px 0;
+  white-space: nowrap;
+}
+
+input[type="number"], textarea {
+  width: 100%;
+  min-height: 35px;
+  border: 0;
+  padding: 7px;
+  font: inherit;
+  background: transparent;
+}
+
+textarea {
+  min-height: 42px;
+  resize: vertical;
+}
+
+.number-input { text-align: center; }
+
+.ooo-row td:not(.agent-cell) { background: var(--yellow); }
+.p1-row td:not(.agent-cell) { background: var(--red); }
+
+tr.dragging { opacity: 0.45; }
+
+#save-status {
+  margin-top: 12px;
+  min-height: 20px;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .toolbar { align-items: stretch; flex-direction: column; }
+  .date-card { width: 100%; }
+}

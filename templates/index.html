@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket Queue Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page">
+    <section class="toolbar">
+      <div>
+        <h1>Ticket Queue Manager</h1>
+        <p>Drag rows to change the queue order. Changes are saved automatically.</p>
+      </div>
+      <div class="date-card">
+        <span>Date</span>
+        <strong>{{ today }}</strong>
+      </div>
+    </section>
+
+    <div class="table-wrap">
+      <table id="queue-table">
+        <thead>
+          <tr class="date-row">
+            <th colspan="2">Date</th>
+            <th colspan="7">{{ today }}</th>
+          </tr>
+          <tr>
+            <th class="agent-col">Agent</th>
+            <th>Flags</th>
+            <th>Easy</th>
+            <th>Investigation</th>
+            <th>Autoclose</th>
+            <th>EMEA Handovers</th>
+            <th>Jobs/P1s</th>
+          </tr>
+        </thead>
+        <tbody id="queue-body">
+          {% for row in rows %}
+          <tr draggable="true" data-id="{{ row.id }}" class="{% if row.on_p1 %}p1-row{% elif row.out_of_office %}ooo-row{% endif %}">
+            <td class="agent-cell">
+              <span class="drag-handle" title="Drag to reorder">☰</span>
+              {{ row.name }}
+            </td>
+            <td class="flags-cell">
+              <label><input type="checkbox" data-field="out_of_office" {% if row.out_of_office %}checked{% endif %}> OOO</label>
+              <label><input type="checkbox" data-field="on_p1" {% if row.on_p1 %}checked{% endif %}> P1</label>
+            </td>
+            <td><input class="number-input" type="number" min="0" data-field="easy" value="{{ row.easy if row.easy is not none else '' }}"></td>
+            <td><input class="number-input" type="number" min="0" data-field="investigation" value="{{ row.investigation if row.investigation is not none else '' }}"></td>
+            <td><input class="number-input" type="number" min="0" data-field="autoclose" value="{{ row.autoclose if row.autoclose is not none else '' }}"></td>
+            <td><textarea data-field="emea_handovers" placeholder="#INC-000001">{{ row.emea_handovers or '' }}</textarea></td>
+            <td><textarea data-field="jobs_p1" placeholder="#INC-000001">{{ row.jobs_p1 or '' }}</textarea></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p id="save-status" aria-live="polite"></p>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
