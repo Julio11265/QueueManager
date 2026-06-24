@@ -16,7 +16,7 @@ def normalize_database_url(url: str | None) -> str:
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = normalize_database_url(os.getenv("DATABASE_URL=postgresql://neondb_owner:npg_4IE8fgrTnCdu@ep-twilight-scene-at0mhne4-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"))
+app.config["SQLALCHEMY_DATABASE_URI"] = normalize_database_url(os.getenv("DATABASE_URL"))
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Required by many hosted Postgres providers such as Neon.
