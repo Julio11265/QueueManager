@@ -4,6 +4,9 @@ from urllib.parse import urlparse, urlunparse
 
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def normalize_database_url(url: str | None) -> str:
@@ -15,15 +18,21 @@ def normalize_database_url(url: str | None) -> str:
     if url.startswith("postgresql+psycopg://"):
         return url
     if url.startswith("postgresql://"):
-        return "postgresql+psycopg://" + url[len("postgresql://"):]
+        return "postgresql+psycopg://" + url[len("postgresql://") :]
     if url.startswith("postgres://"):
-        return "postgresql+psycopg://" + url[len("postgres://"):]
+        return "postgresql+psycopg://" + url[len("postgres://") :]
     return url
 
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = normalize_database_url(os.getenv("DATABASE_URL"))
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db_uri = app.config["SQLALCHEMY_DATABASE_URI"]
+if db_uri.startswith("sqlite"):
+    print("Using database: SQLite local file")
+else:
+    print("Using database: Postgres/Neon")
 
 # Required by many hosted Postgres providers such as Neon.
 if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgresql"):
