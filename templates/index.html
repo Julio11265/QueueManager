@@ -38,8 +38,16 @@
               {{ row.name }}
             </td>
             <td class="flags-cell">
-              <label><input type="checkbox" data-field="out_of_office" {% if row.out_of_office %}checked{% endif %}> OOO</label>
-              <label><input type="checkbox" data-field="on_p1" {% if row.on_p1 %}checked{% endif %}> P1</label>
+              <div class="flag-toggles">
+                <label class="flag-chip flag-chip--ooo">
+                  <input type="checkbox" data-field="out_of_office" {% if row.out_of_office %}checked{% endif %}>
+                  <span>Out of the Office</span>
+                </label>
+                <label class="flag-chip flag-chip--p1">
+                  <input type="checkbox" data-field="on_p1" {% if row.on_p1 %}checked{% endif %}>
+                  <span>Working on a P1</span>
+                </label>
+              </div>
             </td>
             <td><input class="number-input" type="number" min="0" data-field="easy" value="{{ row.easy if row.easy is not none else '' }}"></td>
             <td><input class="number-input" type="number" min="0" data-field="investigation" value="{{ row.investigation if row.investigation is not none else '' }}"></td>
@@ -50,6 +58,10 @@
           {% endfor %}
         </tbody>
       </table>
+    </div>
+
+    <div class="page-actions">
+      <a class="header-btn" href="https://moneycorp-bog-team.onrender.com">World Clock & Weekly Roles</a>
     </div>
 
     <p id="save-status" aria-live="polite"></p>
