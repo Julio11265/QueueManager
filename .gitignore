@@ -1,6 +1,6 @@
-echo .venv/ > .gitignore
-echo __pycache__/ >> .gitignore
-echo *.pyc >> .gitignore
-echo .env >> .gitignore
-echo queue_manager.db >> .gitignore
-echo instance/ >> .gitignore
+.venv/
+__pycache__/
+*.pyc
+.env
+queue_manager.db
+instance/
