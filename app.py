@@ -7,11 +7,17 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 def normalize_database_url(url: str | None) -> str:
-    """Render/Heroku-style URLs can start with postgres://; SQLAlchemy prefers postgresql+psycopg://."""
+    """Neon/Render URLs often start with postgresql:// or postgres://.
+    This app installs psycopg v3, so SQLAlchemy must use postgresql+psycopg://.
+    """
     if not url:
         return "sqlite:///queue_manager.db"
+    if url.startswith("postgresql+psycopg://"):
+        return url
+    if url.startswith("postgresql://"):
+        return "postgresql+psycopg://" + url[len("postgresql://"):]
     if url.startswith("postgres://"):
-        return "postgresql+psycopg://" + url[len("postgres://") :]
+        return "postgresql+psycopg://" + url[len("postgres://"):]
     return url
 
 
